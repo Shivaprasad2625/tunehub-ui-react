@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function ViewSongs() {
+  const [songs, setSongs] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/viewsongs");
+        console.log(response.data);
+        setSongs(response.data);
+      } catch (error) {
+        console.log("Error occured while fetching songs");
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div>
       <h1>Song List</h1>
